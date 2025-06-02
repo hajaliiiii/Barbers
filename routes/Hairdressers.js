@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const hairdressersController = require('../controllers/Hairdressers');
+const authGuard = require("../middlewares/authGuard");
+const roleGuard = require("../middlewares/roleGuard");
 
 router.post('/register', hairdressersController.createHairdressers);
 router.post('/create-services', hairdressersController.createServiceHairdressers);
 
 router.get('/get-hairdressers/:id', hairdressersController.getHairdresser);
 router.get('/get-services/:id', hairdressersController.getServiceHairdressers);
-router.get('/', hairdressersController.getHairdressers);
+router.get('/',  hairdressersController.getHairdressers);
 router.get('/get-personnel/:id', hairdressersController.getPersonnelHairdressers);
 
-router.delete('/delete/:id', hairdressersController.deleteHairdressers);
+router.delete('/delete/:id', authGuard, roleGuard("ADMIN"), hairdressersController.deleteHairdressers);
 router.delete('/delete-service/:id', hairdressersController.deleteServiceHairdressers);
 router.delete('/delete-personnel/:id', hairdressersController.deletePersonnelHairdressers);
 

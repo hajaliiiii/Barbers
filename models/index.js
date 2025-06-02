@@ -1,4 +1,5 @@
 const sequelize = require('../db');
+const Admin = require('./Admin');
 const User = require('./User');
 const Hairdressers = require('./Hairdressers');
 const Personnel = require('./Personnel');
@@ -56,6 +57,7 @@ Reservations.belongsTo(Services, {
 
 const db = {
     sequelize,
+    Admin,
     User,
     Hairdressers,
     Personnel,
